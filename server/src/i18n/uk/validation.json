@@ -1,0 +1,9 @@
+{
+  "INVALID": "{property} повинен бути дійсним",
+  "MIN_LEN": "{property} повинен містити принаймні {constraints.0} символів",
+  "MAX_LEN": "{property} повинен містити принаймні не більше ніж {constraints.0} символів",
+  "NOT_STRING": "{property} повинен бути рядком",
+  "EMPTY": "{property} не може бути порожнім",
+
+  "EMAIL_CONFLICT": "An account with this email already exists"
+}

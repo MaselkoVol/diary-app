@@ -1,25 +1,26 @@
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 import { appConfig } from 'src/config/configuration';
+import { i18nValidationMessage as i18n } from 'nestjs-i18n';
 
 export class SignUpDto {
-  @IsString({ message: `Name should be a string` })
+  @IsString({ message: i18n('validation.NOT_STRING') })
   @MinLength(appConfig.auth.nameMinLen(), {
-    message: `Name should be at least ${appConfig.auth.nameMinLen()} characters long`,
+    message: i18n('validation.MIN_LEN'),
   })
   @MaxLength(appConfig.auth.nameMaxLen(), {
-    message: `Name should be maximum ${appConfig.auth.nameMaxLen()} characters long`,
+    message: i18n('validation.MAX_LEN'),
   })
   name: string;
 
-  @IsEmail({}, { message: `Email should be valid` })
+  @IsEmail({}, { message: i18n('validation.INVALID') })
   email: string;
 
-  @IsString({ message: `Password should be a string` })
+  @IsString({ message: i18n('validation.NOT_STRING') })
   @MinLength(appConfig.auth.passwordMinLen(), {
-    message: `Password should be at least ${appConfig.auth.passwordMinLen()} characters long`,
+    message: i18n('validation.MIN_LEN'),
   })
   @MaxLength(appConfig.auth.passwordMaxLen(), {
-    message: `Password should be maximum ${appConfig.auth.passwordMaxLen()} characters long`,
+    message: i18n('validation.MAX_LEN'),
   })
   password: string;
 }

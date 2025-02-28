@@ -1,0 +1,9 @@
+{
+  "INVALID": "{property} needs to be valid",
+  "MIN_LEN": "{property} needs to be at least {constraints.0} characters long",
+  "MAX_LEN": "{property} needs to be less than {constraints.0} characters long",
+  "NOT_STRING": "{property} needs to be a string",
+  "EMPTY": "{property} can't be empty",
+
+  "EMAIL_CONFLICT": "An account with this email already exists"
+}

@@ -6,17 +6,21 @@ import { SessionInterface } from 'src/common/interfaces/session.interface';
 import { appConfig } from 'src/config/configuration';
 import { DataSource } from 'typeorm';
 import { User } from 'src/users/user.entity';
+import { I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class LocalAuthService {
-  constructor(private dataSource: DataSource) {}
+  constructor(
+    private dataSource: DataSource,
+    private i18n: I18nService
+  ) {}
   private manager = this.dataSource.manager;
 
   async signUp({ name, email, password }: SignUp) {
     // check if user already exists
     const userExists = await this.manager.findOneBy(User, { email });
     if (userExists) {
-      throw new ConflictException(`An account with this email already exists.`);
+      throw new ConflictException(this.i18n.t('validation.EMAIL_CONFLICT', { lang: 'uk' }));
     }
 
     // hash the password with bcrypt
