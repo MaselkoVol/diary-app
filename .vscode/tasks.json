@@ -12,12 +12,6 @@
       "type": "shell",
       "command": "cd server && npm run start:dev",
       "group": "build"
-    },
-    {
-      "label": "Prisma Studio",
-      "type": "shell",
-      "command": "cd server && npx prisma studio",
-      "group": "build"
     }
   ]
 }

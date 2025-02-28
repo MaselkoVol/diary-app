@@ -1,34 +1,40 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from 'src/core/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { SignUp } from './interfaces/sign-up.interface';
 import { SignIn } from './interfaces/sign-in.interface';
 import { SessionInterface } from 'src/common/interfaces/session.interface';
+import { appConfig } from 'src/config/configuration';
+import { DataSource } from 'typeorm';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class LocalAuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private dataSource: DataSource) {}
+  private manager = this.dataSource.manager;
 
   async signUp({ name, email, password }: SignUp) {
-    const userExists = await this.prisma.user.findUnique({ where: { email } });
+    // check if user already exists
+    const userExists = await this.manager.findOneBy(User, { email });
     if (userExists) {
       throw new ConflictException(`An account with this email already exists.`);
     }
 
-    const salt = Number(process.env.PASSWORD_SALT_COUNT) || 10;
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // hash the password with bcrypt
+    const hashedPassword = await bcrypt.hash(password, appConfig.auth.passwordSalt());
 
-    await this.prisma.user.create({
-      data: { name, email, password: hashedPassword },
-    });
+    // put user into the database, isActive = false by default
+    const user = this.manager.create(User, { name, email, password: hashedPassword });
+    await this.manager.save(user);
   }
 
   async signIn({ email, password }: SignIn, session: SessionInterface) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+    // check if user email exists
+    const user = await this.manager.findOneBy(User, { email });
     if (!user || !user.password) {
       throw new UnauthorizedException('Invalid email or password');
     }
 
+    // compare password with bcrypt
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid email or password');
