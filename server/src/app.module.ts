@@ -8,13 +8,16 @@ import { NotesModule } from './notes/notes.module';
 import { User } from './users/user.entity';
 import { Note } from './notes/note.entity';
 import { AcceptLanguageResolver, I18nModule } from 'nestjs-i18n';
+import { SessionModule } from './session/session.module';
 import * as path from 'path';
+import { Session } from './session/session.entity';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     NotesModule,
+    SessionModule,
     ConfigModule.forRoot({
       envFilePath: ['.env', `.env.${appConfig.nodeEnv()}`],
     }),
@@ -26,7 +29,7 @@ import * as path from 'path';
       password: appConfig.postgres.password(),
       database: appConfig.postgres.database(),
       synchronize: !appConfig.isProduction(),
-      entities: [User, Note],
+      entities: [User, Note, Session],
     }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
@@ -37,6 +40,5 @@ import * as path from 'path';
       resolvers: [AcceptLanguageResolver],
     }),
   ],
-  providers: [],
 })
 export class AppModule {}

@@ -5,5 +5,8 @@
   "NOT_STRING": "{property} needs to be a string",
   "EMPTY": "{property} can't be empty",
 
-  "EMAIL_CONFLICT": "An account with this email already exists"
+  "ACCOUNT_CONFLICT": "an account with this email already exists",
+  "ACCOUNT_CREDENTIALS_MISMATCH": "invalid email or password",
+  "ACCOUNT_NOT_FOUND": "fda",
+  "ACCOUNT_FORBIDDEN": "fdsaa"
 }

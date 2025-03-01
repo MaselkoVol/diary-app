@@ -1,18 +1,18 @@
 import { User } from 'src/users/user.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('note')
+@Entity()
 export class Note {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true /*  remove nullable later */ })
   date: Date;
 
-  @Column({ type: 'varchar', length: 120 })
+  @Column({ type: 'varchar', length: 120, nullable: true })
   title: string;
 
-  @Column({ type: 'json' })
+  @Column({ type: 'json', nullable: true /*  remove nullable later */ })
   content: Record<string, unknown>;
 
   @CreateDateColumn()

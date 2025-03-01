@@ -2,7 +2,7 @@ import { Body, Controller, Post, Session } from '@nestjs/common';
 import { LocalAuthService } from './local-auth.service';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
-import { SessionInterface } from 'src/common/interfaces/session.interface';
+import { SessionInterface } from 'src/session/session.interface';
 
 @Controller('auth/local')
 export class LocalAuthController {

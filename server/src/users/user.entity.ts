@@ -1,7 +1,7 @@
 import { Note } from 'src/notes/note.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Index, ManyToOne } from 'typeorm';
 
-@Entity('user')
+@Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -12,7 +12,7 @@ export class User {
   @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   password: string;
 
   @Column({ type: 'boolean', default: false })
