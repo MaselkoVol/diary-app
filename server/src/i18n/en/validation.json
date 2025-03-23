@@ -5,8 +5,15 @@
   "NOT_STRING": "{property} needs to be a string",
   "EMPTY": "{property} can't be empty",
 
-  "ACCOUNT_CONFLICT": "an account with this email already exists",
-  "ACCOUNT_CREDENTIALS_MISMATCH": "invalid email or password",
-  "ACCOUNT_NOT_FOUND": "fda",
-  "ACCOUNT_FORBIDDEN": "fdsaa"
+  "AUTH_CONFLICT": "an account with this email already exists",
+  "AUTH_CREDENTIALS_MISMATCH": "invalid email or password",
+  "SAME_PASSWORD": "password has to be different",
+  "ACCOUNT_ALREADY_ACTIVE": "account already verified",
+
+  "FORBIDDEN": "accesss forbidden",
+  "TOKEN_EXPIRED": "token expired",
+  "LINK_INVALID": "link not valid",
+  "USER_NOT_FOUND": "user not found",
+
+  "NOT_FOUND": "{property} not found"
 }

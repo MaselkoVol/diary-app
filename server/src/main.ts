@@ -9,6 +9,6 @@ async function bootstrap() {
   app.useGlobalFilters(new I18nValidationExceptionFilter({ detailedErrors: false }));
   app.useGlobalPipes(new I18nValidationPipe());
 
-  await app.listen(appConfig.port());
+  await app.listen(appConfig.common.port());
 }
 bootstrap();

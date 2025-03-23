@@ -1,10 +1,9 @@
 import { authConfig } from './auth.config';
+import { commonConfig } from './common.config';
 import { PostgresConfig } from './postgres.config';
 
 export const appConfig = {
-  port: () => Number(process.env.PORT) || 3000,
-  isProduction: () => process.env.NODE_ENV === 'production',
-  nodeEnv: () => process.env.NODE_ENV,
+  common: commonConfig,
   auth: authConfig,
   postgres: PostgresConfig,
 };

@@ -11,6 +11,8 @@ import { AcceptLanguageResolver, I18nModule } from 'nestjs-i18n';
 import { SessionModule } from './session/session.module';
 import * as path from 'path';
 import { Session } from './session/session.entity';
+import { EmailVerification } from './auth/email-verification.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { Session } from './session/session.entity';
     NotesModule,
     SessionModule,
     ConfigModule.forRoot({
-      envFilePath: ['.env', `.env.${appConfig.nodeEnv()}`],
+      envFilePath: `.env.${appConfig.common.nodeEnv()}`,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -28,8 +30,9 @@ import { Session } from './session/session.entity';
       username: appConfig.postgres.username(),
       password: appConfig.postgres.password(),
       database: appConfig.postgres.database(),
-      synchronize: !appConfig.isProduction(),
-      entities: [User, Note, Session],
+      dropSchema: true,
+      synchronize: !appConfig.common.isProduction(),
+      entities: [User, Note, Session, EmailVerification],
     }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
@@ -38,6 +41,17 @@ import { Session } from './session/session.entity';
         watch: true,
       },
       resolvers: [AcceptLanguageResolver],
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: appConfig.auth.mailerHost(),
+        port: appConfig.auth.mailerPort(),
+        secure: appConfig.common.isProduction(),
+        auth: {
+          user: appConfig.auth.mailerUsername(),
+          pass: appConfig.auth.mailerPassword(),
+        },
+      },
     }),
   ],
 })

@@ -19,7 +19,7 @@ export class SessionModule implements NestModule {
             cleanupLimit: appConfig.auth.sessionCleanupLimit(),
           }).connect(this.dataSource.getRepository(Session)),
           cookie: {
-            secure: appConfig.isProduction(),
+            secure: appConfig.common.isProduction(),
             maxAge: appConfig.auth.sessionMaxAge(),
             sameSite: 'strict',
           },
